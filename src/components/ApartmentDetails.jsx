@@ -6,7 +6,7 @@ import { IoMan, IoPeopleCircleSharp } from 'react-icons/io5';
 import { CiMail } from 'react-icons/ci';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import { HiHomeModern } from 'react-icons/hi2';
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { toTitleCase, getCreatedData } from '../utils/Roomutils';
 
 function ApartmentDetails({ apartment_id }) {
@@ -45,7 +45,7 @@ function ApartmentDetails({ apartment_id }) {
     axios.defaults.withCredentials = true;
     try {
       const response = await axios.put(
-        'http://localhost:5000/createRoom/edit-email',
+        '/createRoom/edit-email',
         {
           apartment_id,
           email,

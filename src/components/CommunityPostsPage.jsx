@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { useParams } from 'react-router-dom';
 import { Snackbar } from '@mui/material';
 const CommunityPostsPage = () => {
@@ -17,7 +17,7 @@ const CommunityPostsPage = () => {
   const fetchPosts = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/posts/${apartment_id}`
+        `/api/posts/${apartment_id}`
       );
       console.log(response.data);
       setPosts(response.data);
@@ -29,7 +29,7 @@ const CommunityPostsPage = () => {
   const handleLike = async (postId) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/posts/${postId}/like`
+        `/api/posts/${postId}/like`
       );
 
       fetchPosts();
@@ -40,7 +40,7 @@ const CommunityPostsPage = () => {
 
   const handleAddComment = async (postId, text) => {
     try {
-      await axios.post(`http://localhost:5000/api/posts/${postId}/comment`, {
+      await axios.post(`/api/posts/${postId}/comment`, {
         text,
       });
       fetchPosts(); // Refresh posts to update comments count
@@ -58,7 +58,7 @@ const CommunityPostsPage = () => {
     formData.append('apartment_id', apartment_id);
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/posts',
+        '/api/posts',
         formData
       );
       if (response.status === 201) {
@@ -146,7 +146,7 @@ const CommunityPostsPage = () => {
         {posts.map((post) => (
           <div key={post._id} className="bg-gray-800 rounded-lg p-4 shadow-md">
             <img
-              src={`${'http://localhost:5000'}${post.fileUrl}`}
+              src={`${import.meta.env.VITE_BASE_URL}${post.fileUrl}`}
               alt={post.title}
               className="w-full h-40 object-cover rounded-md mb-4"
             />

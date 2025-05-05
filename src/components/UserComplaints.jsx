@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import LeftSideDash from '../components/LeftSideDash';
-import { fetchData } from '../utils/Roomutils';
-import { useQuery } from '@tanstack/react-query';
-import { useDispatch, useSelector } from 'react-redux';
-import { setApartmentDetails } from '../redux/slice/userSlice';
-import { NavLink } from 'react-router-dom';
-import { FaClipboardList } from 'react-icons/fa';
+import { useState, useEffect } from "react";
+import LeftSideDash from "../components/LeftSideDash";
+import { fetchData } from "../utils/Roomutils";
+import { useQuery } from "@tanstack/react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { setApartmentDetails } from "../redux/slice/userSlice";
+import { NavLink } from "react-router-dom";
+import { FaClipboardList } from "react-icons/fa";
 function ComplaintForm({ apartment_id }) {
-  const [complaintTitle, setComplaintTitle] = useState('');
-  const [complaintType, setComplaintType] = useState('');
-  const [complaintDetail, setComplaintDetail] = useState('');
+  const [complaintTitle, setComplaintTitle] = useState("");
+  const [complaintType, setComplaintType] = useState("");
+  const [complaintDetail, setComplaintDetail] = useState("");
   const [anonymous, setAnonymous] = useState(false); // Default to false (not anonymous)
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
 
   const { Role } = useSelector((state) => state.user);
@@ -21,7 +21,7 @@ function ComplaintForm({ apartment_id }) {
     isError: roomerr,
     isLoading,
   } = useQuery({
-    queryKey: ['room', `${apartment_id}`],
+    queryKey: ["room", `${apartment_id}`],
     queryFn: () => {
       return fetchData(apartment_id);
     },
@@ -37,16 +37,16 @@ function ComplaintForm({ apartment_id }) {
     e.preventDefault();
 
     // Clear previous error
-    setError('');
+    setError("");
 
     // Validate complaint title and detail
     if (complaintTitle.length < 8) {
-      setError('Complaint title must be at least 8 characters long.');
+      setError("Complaint title must be at least 8 characters long.");
       return;
     }
 
     if (complaintDetail.length < 20) {
-      setError('Complaint detail must be at least 20 characters long.');
+      setError("Complaint detail must be at least 20 characters long.");
       return;
     }
 
@@ -58,35 +58,35 @@ function ComplaintForm({ apartment_id }) {
       anonymous,
     };
 
-    fetch('http://localhost:5000/complaints', {
-      method: 'POST',
+    fetch(`${import.meta.env.VITE_BASE_URL}/complaints`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
       body: JSON.stringify(complaintData),
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
-        alert('Complaint files successfully');
+        alert("Complaint files successfully");
         return response.json();
       })
       .then((data) => {
-        setComplaintTitle('');
-        setComplaintType('');
-        setComplaintDetail('');
-        alert('Complaint registered successfully');
+        setComplaintTitle("");
+        setComplaintType("");
+        setComplaintDetail("");
+        alert("Complaint registered successfully");
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   };
 
   return (
     <div className="w-full items-center flex flex-col justify-end mt-10">
-      {(Role === 'Owner' || Role === 'Authority' || Role === 'Security') && (
+      {(Role === "Owner" || Role === "Authority" || Role === "Security") && (
         <div className="w-full items-center justify-end">
           <NavLink to={`/${apartment_id}/complaints/list`}>
             <div className="mr-6 btn bg-[#333] flex items-center justify-center gap-2 hover:bg-[#444] text-white cursor-pointer">
@@ -116,7 +116,7 @@ function ComplaintForm({ apartment_id }) {
             value={complaintTitle}
             onChange={(e) => setComplaintTitle(e.target.value)}
             className={`mt-1 block w-full p-3 border ${
-              error && !complaintTitle ? 'border-red-500' : 'border-gray-300'
+              error && !complaintTitle ? "border-red-500" : "border-gray-300"
             } rounded-md focus:ring-2 focus:ring-black`}
             required
           />
@@ -129,7 +129,7 @@ function ComplaintForm({ apartment_id }) {
             value={complaintType}
             onChange={(e) => setComplaintType(e.target.value)}
             className={`mt-1 block w-full p-3 border ${
-              error && !complaintType ? 'border-red-500' : 'border-gray-300'
+              error && !complaintType ? "border-red-500" : "border-gray-300"
             } rounded-md focus:ring-2 focus:ring-black`}
             required
           >
@@ -147,7 +147,7 @@ function ComplaintForm({ apartment_id }) {
             value={complaintDetail}
             onChange={(e) => setComplaintDetail(e.target.value)}
             className={`mt-1 block w-full p-3 border ${
-              error && !complaintDetail ? 'border-red-500' : 'border-gray-300'
+              error && !complaintDetail ? "border-red-500" : "border-gray-300"
             } rounded-md focus:ring-2 focus:ring-black`}
             rows="4"
             required

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
+import axios from '../config/axiosconfig'
 function Complaint({ apartment_id }) {
   const [complaints, setComplaints] = useState([]);
 
@@ -8,7 +7,7 @@ function Complaint({ apartment_id }) {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/complaints/${apartment_id}`,
+          `/complaints/${apartment_id}`,
           { withCredentials: true }
         );
         setComplaints(response.data);
@@ -22,7 +21,7 @@ function Complaint({ apartment_id }) {
   const handleCheckboxChange = async (complaintId, isSolved) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/complaints/update-is-solved/${complaintId}`,
+        `/complaints/update-is-solved/${complaintId}`,
         { isSolved },
         { withCredentials: true }
       );

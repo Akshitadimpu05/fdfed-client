@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { FaGoogle } from 'react-icons/fa';
 import { RiLoader5Line } from 'react-icons/ri';
 import '@fontsource-variable/fira-code';
@@ -43,7 +43,7 @@ function SignInForm() {
   } = useForm({ resolver: zodResolver(SignUpSchema) });
   const GoogleOauth = async () => {
     dispatch(setGoogleID());
-    window.location.href = 'http://localhost:5000/auth/google';
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/auth/google`;
   };
   const onSubmit = async (formData) => {
     if (!token) {
@@ -57,7 +57,7 @@ function SignInForm() {
     setError(false);
     setErrorMsg('');
     try {
-      const response = await axios.post('http://localhost:5000/user/login', {
+      const response = await axios.post('/user/login', {
         identifier: formData.identifier,
         password: formData.password,
       });

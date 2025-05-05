@@ -91,7 +91,7 @@ const AddParcel = () => {
     if (validateForm()) {
       try {
         const response = await fetch(
-          'http://localhost:5000/api/residents/add-parcel',
+          `${import.meta.env.VITE_BASE_URL}/api/residents/add-parcel`,
           {
             method: 'POST',
             credentials: 'include',

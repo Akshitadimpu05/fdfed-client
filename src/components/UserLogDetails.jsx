@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { fetchData } from '../utils/Roomutils';
-import { useDispatch } from 'react-redux';
-import { setApartmentDetails } from '../redux/slice/userSlice';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchData } from "../utils/Roomutils";
+import { useDispatch } from "react-redux";
+import { setApartmentDetails } from "../redux/slice/userSlice";
 const UserLogDetails = ({ apartment_id }) => {
   const dispatch = useDispatch();
   const {
@@ -11,7 +11,7 @@ const UserLogDetails = ({ apartment_id }) => {
     isError: roomerr,
     isLoading,
   } = useQuery({
-    queryKey: ['room', `${apartment_id}`],
+    queryKey: ["room", `${apartment_id}`],
     queryFn: () => {
       return fetchData(apartment_id);
     },
@@ -31,25 +31,25 @@ const UserLogDetails = ({ apartment_id }) => {
     const fetchLogs = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/residents/${apartment_id}`,
+          `${import.meta.env.VITE_BASE_URL}/api/residents/${apartment_id}`,
           {
-            credentials: 'include',
-          }
+            credentials: "include",
+          },
         );
 
         if (!response.ok) {
-          throw new Error('Failed to fetch log details');
+          throw new Error("Failed to fetch log details");
         }
-        const data =await  response.json();
+        const data = await response.json();
         console.log(data);
         if (Array.isArray(data)) {
           setLogs(data);
         }
         const guest_res = await fetch(
-          `http://localhost:5000/api/residents/get-guests/${apartment_id}`,
+          `${import.meta.env.VITE_BASE_URL}/api/residents/get-guests/${apartment_id}`,
           {
-            credentials: 'include',
-          }
+            credentials: "include",
+          },
         );
         const guests = await guest_res.json();
         setGuestList(guests);

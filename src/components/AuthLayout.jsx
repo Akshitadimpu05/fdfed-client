@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout } from '../redux/slice/authSlice';
 import { setUserDetails } from '../redux/slice/userSlice';
@@ -21,7 +21,7 @@ function AuthLayout({ children, authentication = true }) {
     const verifyToken = async () => {
       if (isRoot && isGoogleId && !isVerify) {
         try {
-          const response = await axios.get(`http://localhost:5000/jwtVerify`);
+          const response = await axios.get(`/jwtVerify`);
           if (response.status == 200) {
             dispatch(login());
             dispatch(setUserDetails(response.data));

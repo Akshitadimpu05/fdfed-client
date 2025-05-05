@@ -13,7 +13,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ChatPage from './pages/ChatPage';
 import AuthLayout from './components/AuthLayout';
-import axios from 'axios';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import usegetJwtVerify from './hooks/jwtVerify';
@@ -42,10 +41,8 @@ import ApartmentSubscription from './components/DashBoard/Owner/ApartmentSubscri
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  axios.defaults.withCredentials = true;
   const jwtVerify = usegetJwtVerify();
   jwtVerify();
-  axios.defaults.withCredentials = true;
 
   const router = createBrowserRouter(
     createRoutesFromElements(

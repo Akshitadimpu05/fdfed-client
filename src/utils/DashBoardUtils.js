@@ -1,6 +1,6 @@
 import { HiUserCircle } from "react-icons/hi2";
 import { TbHomeSearch } from "react-icons/tb";
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { MdOutlineSecurity } from "react-icons/md";
 import { FaBox } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl"
@@ -48,7 +48,7 @@ const DashBoardSideDashutils = [
 ];
 const getApartmentDetails = async () => {
     try {
-        const response = await axios.get(`http://localhost:5000/dashboard/apartment_details`);
+        const response = await axios.get(`/dashboard/apartment_details`);
         if (response.status === 200) {
             return response.data;
         }
@@ -60,7 +60,7 @@ const getApartmentDetails = async () => {
 
 const UserDetailsforApartment = async () => {
     try {
-        const response = await axios.get('http://localhost:5000/dashboard/user_apartment_details', {
+        const response = await axios.get('/dashboard/user_apartment_details', {
             withCredentials: true
         });
         if (response.status === 200) {
@@ -104,7 +104,7 @@ const UserDetailsforApartment = async () => {
 const Apartment_Complaints = async (apartment_id) => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/complaints/${apartment_id}`,
+            `/complaints/${apartment_id}`,
             { withCredentials: true }
         );
         console.log(response.data);
@@ -138,7 +138,7 @@ const Apartment_Complaints = async (apartment_id) => {
 
 const subscriptionDetails = async (subscription_id) => {
     try {
-        const response = await axios.get(`http://localhost:5000/payment/get-subscription-details/${subscription_id}`, {
+        const response = await axios.get(`/payment/get-subscription-details/${subscription_id}`, {
             withCredentials: true
         })
         return response.data;
@@ -153,7 +153,7 @@ const fetchAdminData = async () => {
     let basic = 0;
     let premium = 0;
     try {
-        const response = await axios.get('http://localhost:5000/admin/details');
+        const response = await axios.get('/admin/details');
         if (response.status === 200) {
             const apartments_table = response.data.apartments?.map((ele) => {
                 if (ele.subscription === 'Basic') {
@@ -207,7 +207,7 @@ const fetchAdminData = async () => {
 
 const SubscriptionDetails = async (apartment_id) => {
     try {
-        const response = await axios.get(`http://localhost:5000/payment/get-subscription-details/${apartment_id}`, {
+        const response = await axios.get(`/payment/get-subscription-details/${apartment_id}`, {
             withCredentials: true
         });
         return response.data.subscription;
@@ -222,7 +222,7 @@ const SubscriptionDetails = async (apartment_id) => {
 const ApartmentUsers = async (apartment_id) => {
     try {
 
-        const response = await axios.get(`http://localhost:5000/dashboard/apartment-users/${apartment_id}`, {
+        const response = await axios.get(`/dashboard/apartment-users/${apartment_id}`, {
             withCredentials: true
         });
         console.log(response.data);
@@ -252,7 +252,7 @@ const ApartmentUsers = async (apartment_id) => {
 
 const switchSubscriptions = async (apartment_id, plan_id, subscription_id) => {
     try {
-        const response = await axios.put('http://localhost:5000/payment/update-subscription', {
+        const response = await axios.put('/payment/update-subscription', {
             apartment_id: apartment_id,
             plan_id: plan_id,
             subscription_id: subscription_id
@@ -268,7 +268,7 @@ const switchSubscriptions = async (apartment_id, plan_id, subscription_id) => {
 }
 const deleteSubscription = async (apartment_id, subscription_id) => {
     try {
-        const response = await axios.delete(`http://localhost:5000/payment/cancel-subscription/${apartment_id}/${subscription_id}`)
+        const response = await axios.delete(`/payment/cancel-subscription/${apartment_id}/${subscription_id}`)
         if (response.status == 200) {
             return true;
         }

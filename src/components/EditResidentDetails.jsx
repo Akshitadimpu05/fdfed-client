@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { RiLoader5Line } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from 'antd';
@@ -64,7 +64,7 @@ function RemoveUserDetails({ apartment_id, roomdetailsData }) {
         username: formdata.username,
       };
       response = await axios.post(
-        'http://localhost:5000/room-details/deleteuser',
+        '/room-details/deleteuser',
         formData
       );
       if (response.status === 200) {
@@ -212,7 +212,7 @@ function EditUserRoles({ apartment_id, roomdetailsData }) {
         role: formdata.role,
       };
       response = await axios.put(
-        'http://localhost:5000/room-details/role-assign',
+        '/room-details/role-assign',
         formData
       );
       if (response.status === 200) {
@@ -411,7 +411,7 @@ function RaiseTicketOnResident({ apartment_id, roomdetailsData }) {
         severity: formdata.severity,
       };
       response = await axios.post(
-        'http://localhost:5000/room-details/raise-ticket',
+        '/room-details/raise-ticket',
         formData
       );
       if (response.status === 200) {
@@ -633,7 +633,7 @@ function EventForm({ apartment_name }) {
     };
     try {
       const response = await axios.post(
-        'http://localhost:5000/room-details/schedule-event',
+        '/room-details/schedule-event',
         formData
       );
 

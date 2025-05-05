@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { ApartmentComplaints } from './antDesignUI/TableUi';
 import { ApartmentComplaintsPie } from './nivocharts/PieChart';
 function ComplaintDashboardDisplay({ apartment_id }) {
@@ -11,7 +11,7 @@ function ComplaintDashboardDisplay({ apartment_id }) {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/complaints/${apartment_id}`,
+          `/complaints/${apartment_id}`,
           { withCredentials: true }
         );
         setComplaints(response.data);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import UserRooms from '../components/UserRooms';
 import { MdCancel } from 'react-icons/md';
 import JoinRoomModal from '../components/JoinRoomModal';
@@ -47,7 +47,7 @@ function MyRooms() {
   useEffect(() => {
     const fetchRoomData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/my-rooms');
+        const response = await axios.get('/my-rooms');
         if (response.status === 200) {
           setEmpty(true);
         } else if (response.status === 201) {

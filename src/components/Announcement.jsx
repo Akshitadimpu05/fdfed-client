@@ -2,7 +2,7 @@ import { MdAnnouncement } from 'react-icons/md';
 import { RiLoader5Line } from 'react-icons/ri';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { DateRangeCalendar } from '@mui/x-date-pickers-pro/DateRangeCalendar';
 import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
@@ -45,7 +45,7 @@ function AnnouncementForm({
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/announcement/create',
+        '/announcement/create',
         formData,
         {
           withCredentials: true,
@@ -153,7 +153,7 @@ function Announcement({ apartment_id, isRole, Role, apartment_username }) {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/announcement/${apartment_id}`
+          `/announcement/${apartment_id}`
         );
         setMessages(response.data);
       } catch (error) {
@@ -212,7 +212,7 @@ function Announcement({ apartment_id, isRole, Role, apartment_username }) {
                     {msg.fileUrl && (
                       <div id="fileupload">
                         <a
-                          href={`http://localhost:5000/announcement/download/${msg.filename}`}
+                          href={`${import.meta.env.VITE_BASE_URL}/announcement/download/${msg.filename}`}
                           download={msg.filename}
                         >
                           {msg.filename}

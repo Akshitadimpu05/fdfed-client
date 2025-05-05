@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { RiLoader5Line } from 'react-icons/ri';
 import '@fontsource-variable/fira-code';
 import '@fontsource-variable/nunito';
@@ -54,7 +54,7 @@ function JoinRoomModal() {
         apartment_id: formdata.apartment_id,
         flat_id: formdata.flat_id,
       };
-      response = await axios.post('http://localhost:5000/join-room', formData);
+      response = await axios.post('/join-room', formData);
       if (response.status === 200) {
         navigate(`/room/${formData.apartment_id}`);
       }

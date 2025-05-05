@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useRazorpay } from "react-razorpay";
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import env_variables from '../config/envconfig';
 const useCreateRoom = () => {
     const { error, isLoading, Razorpay } = useRazorpay();
     const navigate = useNavigate();
     const roomHandler = async (roomData) => {
         try {
-            const response = await axios.post('http://localhost:5000/payment/create-subscription', {
+            const response = await axios.post('/payment/create-subscription', {
                 sub_type: roomData.subscription
             }, {
                 withCredentials: true,
@@ -36,7 +36,7 @@ const useCreateRoom = () => {
                             subscriptionId: subscription.subscription.id
                         }
                         const addRoomData = await axios.post(
-                            'http://localhost:5000/createRoom',
+                            '/createRoom',
                             formData, {
                             withCredentials: true
                         }

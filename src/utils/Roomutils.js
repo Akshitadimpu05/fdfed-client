@@ -1,6 +1,6 @@
 import { FaPlus } from 'react-icons/fa';
 
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 const backgroundColors = [
@@ -60,7 +60,7 @@ const getApartmentId = (apartment_id) => {
 const fetchRoomData = async () => {
     axios.defaults.withCredentials = true;
     try {
-        const response = await axios.get('http://localhost:5000/my-rooms');
+        const response = await axios.get('/my-rooms');
         if (response.status === 200) {
             return {
                 status: 'data is empty',
@@ -82,7 +82,7 @@ const fetchRoomData = async () => {
 const fetchData = async (apartment_id) => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/room-details/${apartment_id}`
+            `/room-details/${apartment_id}`
         );
         const { data } = response;
         if (response.status === 200) {
@@ -96,7 +96,7 @@ const fetchData = async (apartment_id) => {
 
 const fetchisRole = async (role) => {
     try {
-        const response = await axios.get(`http://localhost:5000/isSuperRole/${role}`, {
+        const response = await axios.get(`/isSuperRole/${role}`, {
             withCredentials: true
         });
         const { data } = response;
@@ -114,7 +114,7 @@ const fetchisRole = async (role) => {
 const fetchRoomDetails = async (apartment_id) => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/room-details/${apartment_id}/details`
+            `/room-details/${apartment_id}/details`
         );
         const { data } = response;
         if (response.status === 200) {

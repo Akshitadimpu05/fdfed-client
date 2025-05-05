@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../config/axiosconfig'
 import { format } from 'date-fns'; // Library to help format dates
 import {
   AdminApartmentsDisplay,
@@ -19,7 +19,7 @@ function AdminDisplay() {
       let basic = 0;
       let premium = 0;
       try {
-        const response = await axios.get('http://localhost:5000/admin/details');
+        const response = await axios.get('/admin/details');
         if (response.status === 200) {
           // Process apartments data
           const apartments_table = response.data.apartments?.map((ele) => {

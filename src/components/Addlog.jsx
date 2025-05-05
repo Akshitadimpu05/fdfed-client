@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { fetchisRole, fetchRoomDetails } from '../utils/Roomutils';
-import { useQuery } from '@tanstack/react-query';
-import ReactModal from 'react-modal';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { fetchisRole, fetchRoomDetails } from "../utils/Roomutils";
+import { useQuery } from "@tanstack/react-query";
+import ReactModal from "react-modal";
+import axios from "../config/axiosconfig";
 const AddLog = () => {
   const [apartmentId, setApartmentId] = useState(null);
-  const [name, setName] = useState('');
-  const [entryTime, setEntryTime] = useState('');
-  const [exitTime, setExitTime] = useState('');
+  const [name, setName] = useState("");
+  const [entryTime, setEntryTime] = useState("");
+  const [exitTime, setExitTime] = useState("");
   const [apartmentUsers, setApartmentUsers] = useState([]);
   const [guestModalOpen, setGuestModalOpen] = useState(false);
-  const [flatNo, setFlatNo] = useState('');
+  const [flatNo, setFlatNo] = useState("");
   const [noOfGuests, setNoOfGuests] = useState(0);
   const [guestNames, setGuestNames] = useState([]);
   const [guestList, setGuestList] = useState([]);
@@ -21,7 +21,7 @@ const AddLog = () => {
     isError: detailserror,
     isLoading: detailsloading,
   } = useQuery({
-    queryKey: ['details', apartmentId],
+    queryKey: ["details", apartmentId],
     queryFn: () => fetchRoomDetails(apartmentId),
     enabled: !!apartmentId, // Only run query when apartmentId exists
   });
@@ -39,14 +39,14 @@ const AddLog = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchisRole('Security');
+        const data = await fetchisRole("Security");
         if (data?.details?.apartment_id) {
           setApartmentId(data.details.apartment_id);
         } else {
-          console.error('You are not authorized as security.');
+          console.error("You are not authorized as security.");
         }
       } catch (error) {
-        console.error('Error fetching role data:', error);
+        console.error("Error fetching role data:", error);
       }
     };
     fetchData();
@@ -55,30 +55,30 @@ const AddLog = () => {
   // Log function for adding resident logs
   const addLog = async () => {
     try {
-      console.log(name,entryTime,exitTime,apartmentId);
+      console.log(name, entryTime, exitTime, apartmentId);
       const response = await fetch(
-        `http://localhost:5000/api/residents/add-log`,
+        `${import.meta.env.VITE_BASE_URL}/api/residents/add-log`,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          credentials: 'include', // Ensures that cookies are sent with the request
+          credentials: "include", // Ensures that cookies are sent with the request
           body: JSON.stringify({
             apartment_id: apartmentId,
             name,
             entry_time: entryTime,
             exit_time: exitTime,
           }),
-        }
+        },
       );
 
       if (!response.ok) {
         // If the response is not okay (status not in the range 200-299)
         const errorData = await response.json();
-        console.error('Error:', errorData);
+        console.error("Error:", errorData);
         throw new Error(
-          `Failed to add log: ${errorData.error || 'Unknown error'}`
+          `Failed to add log: ${errorData.error || "Unknown error"}`,
         );
       }
 
@@ -86,18 +86,18 @@ const AddLog = () => {
       const responseData = await response.json();
 
       // Clear the input fields after successful submission
-      setName('');
-      setEntryTime('');
-      setExitTime('');
+      setName("");
+      setEntryTime("");
+      setExitTime("");
     } catch (error) {
       console.log(error);
-      console.error('Error adding log:', error.message);
+      console.error("Error adding log:", error.message);
     }
 
     //To clear up the fields
-    setName('');
-    setEntryTime('');
-    setExitTime('');
+    setName("");
+    setEntryTime("");
+    setExitTime("");
     // Your log logic here
   };
 
@@ -113,7 +113,7 @@ const AddLog = () => {
         !guestNames ||
         guestNames.length != noOfGuests
       ) {
-        alert('Invalid data provided');
+        alert("Invalid data provided");
         return;
       }
       const body = {
@@ -122,25 +122,25 @@ const AddLog = () => {
         guest_names: guestNames,
       };
       const response = await axios.post(
-        `http://localhost:5000/api/residents/add-guest/${apartmentId}`,
+        `/api/residents/add-guest/${apartmentId}`,
         body,
         {
           withCredentials: true,
-        }
+        },
       );
       if (response.status === 201) {
-        alert('Guests added successfully!');
+        alert("Guests added successfully!");
       }
 
       // Clear form fields after submitting
-      setFlatNo('');
+      setFlatNo("");
       setNoOfGuests(0);
       setGuestNames([]);
       setGuestModalOpen(false); // Close modal after submitting
     } catch (error) {
       console.log(error);
-      console.error('Error adding guests:', error.message);
-      alert('Error adding guests');
+      console.error("Error adding guests:", error.message);
+      alert("Error adding guests");
     }
   };
 
@@ -188,7 +188,7 @@ const AddLog = () => {
                   key={i}
                   type="text"
                   placeholder={`Guest Name ${i + 1}`}
-                  value={guestNames[i] || ''}
+                  value={guestNames[i] || ""}
                   onChange={(e) => {
                     const updatedNames = [...guestNames];
                     updatedNames[i] = e.target.value;
@@ -237,7 +237,7 @@ const AddLog = () => {
               value={entryTime}
               onChange={(e) => {
                 console.log(e.target.value);
-                setEntryTime(e.target.value)
+                setEntryTime(e.target.value);
               }}
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
             />

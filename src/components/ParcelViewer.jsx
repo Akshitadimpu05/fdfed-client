@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import '../css/Parcel.css';
+import React, { useEffect, useState } from "react";
+import "../css/Parcel.css";
 
 const ViewPage = ({ apartment_id }) => {
   const [parcels, setParcels] = useState([]);
-  const [filters, setFilters] = useState({ residentName: '', parcelType: '' });
+  const [filters, setFilters] = useState({ residentName: "", parcelType: "" });
 
   useEffect(() => {
     fetchParcels();
@@ -12,16 +12,16 @@ const ViewPage = ({ apartment_id }) => {
   const fetchParcels = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/residents/get-parcels/${apartment_id}`,
+        `${import.meta.env.VITE_BASE_URL}/api/residents/get-parcels/${apartment_id}`,
         {
-          method: 'GET',
-          credentials: 'include',
-        }
+          method: "GET",
+          credentials: "include",
+        },
       );
       const data = await response.json();
       setParcels(data);
     } catch (error) {
-      console.error('Error fetching parcels:', error);
+      console.error("Error fetching parcels:", error);
     }
   };
 

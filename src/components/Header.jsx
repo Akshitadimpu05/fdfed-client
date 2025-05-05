@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { logout } from '../redux/slice/authSlice';
 import { setUserDetails } from '../redux/slice/userSlice';
 import { FaArrowRightLong } from 'react-icons/fa6';
-import axios from 'axios';
+import axios from '../config/axiosconfig';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { toggleSideBar } from '../redux/slice/SideDashSlice';
 import src from '/logo.svg';
@@ -26,7 +26,7 @@ function Header() {
   const userdetails = useSelector((state) => state.user.userDetails);
   const Logout = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/user/logout`);
+      const response = await axios.get(`/user/logout`);
       if (response.status === 200) {
         dispatch(logout());
         dispatch(setUserDetails(null));
