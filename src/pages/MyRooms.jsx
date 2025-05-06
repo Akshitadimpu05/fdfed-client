@@ -51,11 +51,11 @@ function MyRooms() {
         console.log("dsfkjgnbsdfkjgnsdfg");
         const response = await axios.get('/my-rooms');
         console.log(response);
-        if (response.status === 200) {
-          setEmpty(true);
-        } else if (response.status === 201 || response.status===304) {
+       if (response.status === 201 || response.status===200) {
           setData(response.data);
           setEmpty(false);
+        }else{
+          setEmpty(true);
         }
       } catch (error) {
         console.error(error);
