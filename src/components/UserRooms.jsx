@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import LeftSideDash from './LeftSideDash';
 const UserRooms = ({ data, setModal, isModal }) => {
+  console.log(data);
   return (
     <div className="min-w-[80vw] w-[85vw] flex mt-4 flex-col items-center justify-center gap-6 pb-4">
       <div className="flex w-full flex-row-reverse  cursor-pointer">

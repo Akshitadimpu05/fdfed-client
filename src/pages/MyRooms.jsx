@@ -45,12 +45,15 @@ function MyRooms() {
   const [isModal, setModal] = useState(false);
 
   useEffect(() => {
+    console.log("calling");
     const fetchRoomData = async () => {
       try {
+        console.log("dsfkjgnbsdfkjgnsdfg");
         const response = await axios.get('/my-rooms');
+        console.log(response.data);
         if (response.status === 200) {
           setEmpty(true);
-        } else if (response.status === 201) {
+        } else if (response.status === 201 || response.status===304) {
           setData(response.data);
           setEmpty(false);
         }
@@ -61,7 +64,6 @@ function MyRooms() {
         setLoading(false);
       }
     };
-
     fetchRoomData();
   }, []);
   useEffect(() => {
