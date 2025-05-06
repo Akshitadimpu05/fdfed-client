@@ -50,7 +50,7 @@ function MyRooms() {
       try {
         console.log("dsfkjgnbsdfkjgnsdfg");
         const response = await axios.get('/my-rooms');
-        console.log(response.data);
+        console.log(response);
         if (response.status === 200) {
           setEmpty(true);
         } else if (response.status === 201 || response.status===304) {
