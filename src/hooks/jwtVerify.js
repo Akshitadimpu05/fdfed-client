@@ -1,4 +1,4 @@
-import axios from 'config/axiosconfig';
+import axios from '../config/axiosconfig';
 import { useDispatch } from 'react-redux';
 import { login, logout } from '../redux/slice/authSlice';
 import { setUserDetails } from '../redux/slice/userSlice';
