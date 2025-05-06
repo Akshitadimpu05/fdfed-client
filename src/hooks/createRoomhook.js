@@ -7,13 +7,14 @@ const useCreateRoom = () => {
     const navigate = useNavigate();
     const roomHandler = async (roomData) => {
         try {
+            console.log(import.meta.env.VITE_BASE_URL);
             const response = await axios.post('/payment/create-subscription', {
                 sub_type: roomData.subscription
             }, {
                 withCredentials: true,
-
             });
             const subscription = response.data;
+            console.log(subscription);
             if (response.status === 200) {
                 const options = {
                     key: env_variables.RAZORPAY_KEY_ID,
@@ -47,15 +48,16 @@ const useCreateRoom = () => {
 
                     }
                 };
-                if (error) throw Error(error.message);
+                if (error){
+                      console.log(error);
+                };
                 const razorpayInstance = new Razorpay(options);
                 razorpayInstance.open();
 
             }
 
         } catch (error) {
-            alert('Payment verification failed');
-            navigate('/');
+            console.log(error);
         }
 
     }
