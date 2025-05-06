@@ -20,7 +20,7 @@ function SignInForm() {
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState(false);
   const [error, setErrorMsg] = useState('');
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(true);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -159,9 +159,6 @@ function SignInForm() {
               {errors.password && (
                 <p className="form-message">{errors.password.message}</p>
               )}
-            </div>
-            <div className="form-item w-full flex items-center justify-center">
-              <ReCaptcha callback={handleToken} />
             </div>
             {isError && <p className="form-message">{error}</p>}
 

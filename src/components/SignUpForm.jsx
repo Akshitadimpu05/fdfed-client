@@ -14,7 +14,6 @@ import { useDispatch } from 'react-redux';
 import { login, setGoogleID } from '../redux/slice/authSlice.js';
 import { setUserDetails } from '../redux/slice/userSlice.js';
 import { useNavigate } from 'react-router-dom';
-import ReCaptcha from './ReCaptcha.jsx';
 const username_regex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+$/i;
 const SignUpSchema = z
   .object({
@@ -38,7 +37,7 @@ function SignUpForm() {
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState(false);
   const [error, setErrorMsg] = useState('');
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -220,9 +219,6 @@ function SignUpForm() {
                   {errors.confirmPassword.message}
                 </p>
               )}
-            </div>
-            <div className="form-item w-full flex items-center justify-center">
-              <ReCaptcha callback={handleToken} />
             </div>
             {isError && <p className=" form-message">{error}</p>}
 
