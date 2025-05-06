@@ -61,17 +61,10 @@ const fetchRoomData = async () => {
     axios.defaults.withCredentials = true;
     try {
         const response = await axios.get('/my-rooms');
-        if (response.status === 200) {
-            return {
-                status: 'data is empty',
-                rooms: []
-            };
-        } else if (response.status === 201) {
-            return {
-                status: 'data fetched',
-                rooms: response.data
-            };
-        }
+        return {
+            status: 'data fetched',
+            rooms: response.data
+        };
     } catch (error) {
         return {
             status: 'error occurred',
