@@ -21,7 +21,7 @@ function ChatPage() {
   const username = apartment_username;
 
   useEffect(() => {
-    const newsocket = io(import.meta.env.BASE_URL);
+    const newsocket = io(import.meta.env.VITE_BASE_URL);
     setSocket(newsocket);
 
     // newsocket.on('disconnect',)
